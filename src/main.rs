@@ -1,9 +1,9 @@
 use dotenv::dotenv;
 use hyper::body::Buf;
-use hyper::{header,Body, client, Request};
+use hyper::{header,Body, client, Request, };
+use hyper_util::client::legacy::Client;
 use hyper_tls::HttpsConnector;
 use serde_derive::{Deserialize, Serialize};
-// use spinner::{SpinnerBuilder,SpinnerHandle};
 use spinners::{Spinner, Spinners};
 use std::env;
 use std::io::{stdin,stdout, Write};
@@ -57,7 +57,7 @@ use std::io::{stdin,stdout, Write};
     let https = HttpsConnector::new();
 
     // create a client
-    let client = client::builder().build::<_, hyper::Body>(https);
+    let client = Client::builder().build(https);
 
     //URL to which we will make the request
     let uri = "https://api.openai.com/v1/engines/text-davinci-001/completions";
